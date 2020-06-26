@@ -5,8 +5,11 @@ information. They have a CSV file of the cellphone towers in Hamilton, one tower
 Northing, Power.
 
 #Here are the first three lines from the file towers.csv:
+
 VODAFONE NZ LTD,HOOD STREET,2711200,6376600,27.4
+
 VODAFONE NZ LTD,WAIKATO HOSPITAL,2711300,6375100,26.5
+
 VODAFONE NZ LTD,RAILWAY STATION HN,2709700,6376500,21.8
 
 The map is the NZMS260 map for Hamilton, and the Northing and Easting values give the position of the tower (how far North and how far East on
