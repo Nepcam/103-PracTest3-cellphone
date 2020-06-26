@@ -23,6 +23,9 @@ namespace PracTest2
         const int MIN_NORTHING = 6370000;
         //The largest Northing value on the NZMG260 S14 (Hamilton) map
         const int MAX_NORTHING = 6400000;
+
+        //Filter for CSV files
+        const string FILTER = "CSV Files|*.csv|ALL Files|'.'";
         
         
         public Form1()
@@ -68,6 +71,68 @@ namespace PracTest2
             double ratio = (double) (easting - MIN_EASTING) / (MAX_EASTING - MIN_EASTING);
             int x = (int)(ratio * pictureBoxMap.Width);
             return x;
+        }
+
+        /// <summary>
+        /// Closes the application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        /// <summary>
+        /// Opens a CSV file of tower information and displays the information in the listbox and draws the towers in the picturebox.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StreamReader reader;
+            string line = "";
+            string[] csvArray;
+            string licensee = "";
+            string location = "";
+            int easting = 0;
+            int northing = 0;
+            double power = 0;
+
+            //Set the filter for the dialog control
+            openFileDialog1.Filter = FILTER;
+            //Check if the user has selected the file
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                //Open the selected file
+                reader = File.OpenText(openFileDialog1.FileName);
+
+                //WHILE not end of file
+                while(!reader.EndOfStream)
+                {
+                    try
+                    {
+                        //Read an entire csv line from the file
+                        line = reader.ReadLine();
+                        //Split the values in the line using the array
+                        csvArray = line.Split(',');
+                        //Check if the array has the correct number of elements
+                        if (csvArray.Length == 5)
+                        {
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error: " + line);
+                        }
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Error: " + line);
+                }
+                //Close the file
+                reader.Close();
+            }
         }
     }
 }
