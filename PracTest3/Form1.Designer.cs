@@ -37,6 +37,8 @@
             this.countTowersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBoxMaxPower = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMap)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -101,6 +103,7 @@
             this.countTowersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
             this.countTowersToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.countTowersToolStripMenuItem.Text = "Count Towers";
+            this.countTowersToolStripMenuItem.Click += new System.EventHandler(this.countTowersToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -115,11 +118,29 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // textBoxMaxPower
+            // 
+            this.textBoxMaxPower.Location = new System.Drawing.Point(760, 74);
+            this.textBoxMaxPower.Name = "textBoxMaxPower";
+            this.textBoxMaxPower.Size = new System.Drawing.Size(100, 20);
+            this.textBoxMaxPower.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(757, 41);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(88, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Enter Max Power";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(890, 719);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBoxMaxPower);
             this.Controls.Add(this.listBoxData);
             this.Controls.Add(this.pictureBoxMap);
             this.Controls.Add(this.menuStrip1);
@@ -146,6 +167,8 @@
         private System.Windows.Forms.ToolStripMenuItem countTowersToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.TextBox textBoxMaxPower;
+        private System.Windows.Forms.Label label1;
     }
 }
 

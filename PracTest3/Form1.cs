@@ -26,6 +26,12 @@ namespace PracTest2
 
         //Filter for CSV files
         const string FILTER = "CSV Files|*.csv|ALL Files|'.'";
+
+        //Create lists to store the data
+        List<string> locationList = new List<string>();
+        List<int> eastingList = new List<int>();
+        List<int> northingList = new List<int>();
+        List<double> powerList = new List<double>();
         
         
         public Form1()
@@ -74,6 +80,38 @@ namespace PracTest2
         }
 
         /// <summary>
+        /// Calculates the y position of the tower
+        /// </summary>
+        /// <param name="northing">The northing value of the tower</param>
+        /// <returns>The y position of the tower</returns>
+        private int CalculateY(int northing)
+        {
+            double percentUp = (double)(northing - MIN_NORTHING) / (MAX_NORTHING - MIN_NORTHING);
+            int y = (int)(pictureBoxMap.Height - (pictureBoxMap.Height * percentUp));
+            return y;
+        }
+
+        /// <summary>
+        /// Counts the towers in the powerList data
+        /// </summary>
+        /// <param name="maxPower"></param>
+        /// <returns></returns>
+        private int CountTowers(double maxPower)
+        {
+            int count = 0;
+            //FOR each power value in the lists
+            for (int i = 0; i < powerList.Count; i++)
+            {
+                //Check if the current power value <= the power value passed to the method
+                if (powerList[i] <= maxPower)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        /// <summary>
         /// Closes the application.
         /// </summary>
         /// <param name="sender"></param>
@@ -90,6 +128,7 @@ namespace PracTest2
         /// <param name="e"></param>
         private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Graphics paper = pictureBoxMap.CreateGraphics();
             StreamReader reader;
             string line = "";
             string[] csvArray;
@@ -98,6 +137,9 @@ namespace PracTest2
             int easting = 0;
             int northing = 0;
             double power = 0;
+            int x = 0;
+            int y = 0;
+
 
             //Set the filter for the dialog control
             openFileDialog1.Filter = FILTER;
@@ -119,7 +161,29 @@ namespace PracTest2
                         //Check if the array has the correct number of elements
                         if (csvArray.Length == 5)
                         {
+                            //Extract values from the array into separate variable
+                            licensee = csvArray[0];
+                            location = csvArray[1];
+                            easting = int.Parse(csvArray[2]);
+                            northing = int.Parse(csvArray[3]);
+                            power = double.Parse(csvArray[4]);
 
+                            //Add the data to the lists
+                            locationList.Add(location);
+                            eastingList.Add(easting);
+                            northingList.Add(northing);
+                            powerList.Add(power);
+
+                            //Display the values in the listbox neatly padded out
+                            listBoxData.Items.Add(licensee.PadRight(20) + location.PadRight(30) + easting.ToString().PadRight(10) + northing.ToString().PadRight(10) + power.ToString());
+
+                            //Calculate the X position of the tower
+                            x = CalculateX(easting);
+                            //Calculate the Y position of the tower
+                            y = CalculateY(northing);
+
+                            //Draw the tower centred around the x and y position
+                            DrawTower(paper, x, y, power, Color.Blue);                            
                         }
                         else
                         {
@@ -129,10 +193,24 @@ namespace PracTest2
                     catch
                     {
                         Console.WriteLine("Error: " + line);
+                    }
                 }
                 //Close the file
                 reader.Close();
             }
+        }
+
+        /// <summary>
+        /// Count towers gets a power value from the user and then displays the number of towers which 
+        /// have a power rating less than or equal to the given power value in a message window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void countTowersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            double maxPower = double.Parse(textBoxMaxPower.Text);
+            int numTowers = CountTowers(maxPower);
+            MessageBox.Show(numTowers.ToString());
         }
     }
 }
