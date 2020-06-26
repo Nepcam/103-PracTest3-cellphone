@@ -4,7 +4,7 @@ Vodafone wants to look at the coverage of their cellphone towers in Hamilton, an
 information. They have a CSV file of the cellphone towers in Hamilton, one tower per line in the following format: Licensee, Location, Easting,
 Northing, Power.
 
-#Here are the first three lines from the file towers.csv:
+# Here are the first three lines from the file towers.csv:
 
 VODAFONE NZ LTD,HOOD STREET,2711200,6376600,27.4
 
